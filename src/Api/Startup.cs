@@ -1,3 +1,5 @@
+using Api.AppServices;
+using App.Services;
 using Dominio.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,6 +25,8 @@ namespace Api
         {
             services.AddDbContext<Contexto>(option => option.UseSqlServer(Configuration["Context"]));
             services.AddScoped<DbContext, Contexto>();
+            services.AddScoped<ColaboradorService>();
+            services.AddScoped<FeriasAppService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

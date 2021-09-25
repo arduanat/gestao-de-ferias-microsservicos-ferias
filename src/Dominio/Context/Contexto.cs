@@ -17,6 +17,7 @@ namespace Dominio.Context
 
         public DbSet<Ferias> Ferias { get; set; }
         public DbSet<PeriodoDeFerias> PeriodosDeFerias { get; set; }
+        public DbSet<HomologacaoDeFerias> HomologacoesDeFerias { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +26,7 @@ namespace Dominio.Context
 
             modelBuilder.ApplyConfiguration(new FeriasMap());
             modelBuilder.ApplyConfiguration(new PeriodoDeFeriasMap());
+            modelBuilder.ApplyConfiguration(new HomologacaoDeFeriasMap());
         }
     }
 }
