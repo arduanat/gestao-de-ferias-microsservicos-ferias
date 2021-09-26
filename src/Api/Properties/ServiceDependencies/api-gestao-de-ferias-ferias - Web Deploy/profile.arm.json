@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "gestao-de-ferias-api-ferias",
+      "defaultValue": "api-gestao-de-ferias-ferias",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }
