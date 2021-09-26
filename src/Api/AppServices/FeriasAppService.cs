@@ -26,7 +26,12 @@ namespace Api.AppServices
         {
             var colaboradores = await colaboradorService.Buscar();
             var idDosColaboradores = colaboradores.Select(x => x.Id).ToList();
-            var ferias = await contexto.Ferias.Include(x => x.PeriodosDeFerias).Include(x => x.Homologacao).Where(x => idDosColaboradores.Contains(x.ColaboradorId)).ToListAsync();
+            var ferias = await contexto.Ferias
+                                       .Include(x => x.PeriodosDeFerias)
+                                       .Include(x => x.Homologacao)
+                                       .Where(x => idDosColaboradores.Contains(x.ColaboradorId))
+                                       .ToListAsync();
+
             return FeriasFactory.ListarFerias(ferias, colaboradores);
         }
 
