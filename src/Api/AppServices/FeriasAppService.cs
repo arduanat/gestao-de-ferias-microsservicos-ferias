@@ -61,7 +61,6 @@ namespace Api.AppServices
             var idDosColaboradores = colaboradores.Select(x => x.Id).ToList();
 
             var feriasDosColaboradores = await contexto.Ferias
-                                                       .Include(x => x.PeriodosDeFerias)
                                                        .Include(x => x.Homologacao)
                                                        .Where(x => idDosColaboradores.Contains(x.ColaboradorId))
                                                        .ToListAsync();
