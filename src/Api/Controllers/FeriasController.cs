@@ -20,14 +20,14 @@ namespace App.Controllers
         }
 
         [HttpGet("ObterFerias")]
-        public async Task<List<FeriasDto>> Get()
+        public async Task<List<FeriasDto>> ObterFerias()
         {
             var ferias = await feriasAppService.ListarFerias();
             return ferias;
         }
 
         [HttpPost("MarcarFerias")]
-        public async Task<Response> Post([FromBody] List<PeriodoDeFeriasDto> periodos)
+        public async Task<Response> MarcarFerias([FromBody] List<PeriodoDeFeriasDto> periodos)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace App.Controllers
         }
 
         [HttpPost("AprovarFerias")]
-        public async Task<Response> Post()
+        public async Task<Response> AprovarFerias()
         {
             try
             {
@@ -55,7 +55,7 @@ namespace App.Controllers
         }
         
         [HttpDelete("LimparBanco")]
-        public async Task<Response> Delete()
+        public async Task<Response> LimparBanco()
         {
             try
             {
