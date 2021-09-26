@@ -27,7 +27,7 @@ namespace App.Controllers
         }
 
         [HttpPost("MarcarFerias")]
-        public async Task<Response> Post(List<PeriodoDeFeriasDto> periodos)
+        public async Task<Response> Post([FromBody] List<PeriodoDeFeriasDto> periodos)
         {
             try
             {
