@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Dominio.ValueObjects.Enums;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Dominio.Models
@@ -20,6 +21,7 @@ namespace Dominio.Models
         public int ColaboradorId { get; set; }
         public int AnoDeExercicio { get; set; }
         public List<PeriodoDeFerias> PeriodosDeFerias { get; set; }
+        public HomologacaoDeFerias Homologacao { get; set; }
 
         public void AdicionarPeriodos(List<PeriodoDeFerias> periodosDeFerias)
         {
@@ -32,6 +34,11 @@ namespace Dominio.Models
                     PeriodosDeFerias.Add(novoPeriodo);
                 }
             }
+        }
+
+        public void Aprovar()
+        {
+            Homologacao = new HomologacaoDeFerias(this.Id, SituacaoDasFerias.Aprovada);
         }
 
         private bool JaPossuiQuantidadeLimiteDeDiasCadastrado()

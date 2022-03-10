@@ -1,3 +1,5 @@
+using Api.AppServices;
+using App.Services;
 using Dominio.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,6 +25,8 @@ namespace Api
         {
             services.AddDbContext<Contexto>(option => option.UseSqlServer("Data Source=SETIC-20000086\\SQLEXPRESS;Initial Catalog=GestaoDeFerias.Ferias;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddScoped<DbContext, Contexto>();
+            services.AddScoped<ColaboradorService>();
+            services.AddScoped<FeriasAppService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -1,11 +1,9 @@
 ﻿using Api;
-using Dominio.Context;
-using Dominio.Models;
+using Api.AppServices;
+using Api.AppServices.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace App.Controllers
@@ -14,39 +12,54 @@ namespace App.Controllers
     [Route("[controller]")]
     public class FeriasController : ControllerBase
     {
-        private readonly Contexto contexto;
+        private readonly FeriasAppService feriasAppService;
 
-        public FeriasController(Contexto contexto)
+        public FeriasController(FeriasAppService contexto)
         {
-            this.contexto = contexto;
+            this.feriasAppService = contexto;
         }
 
-        [HttpGet]
-        public async Task<List<Ferias>> Get(int colaboradorId)
+        [HttpGet("ObterFerias")]
+        public async Task<List<FeriasDto>> ObterFerias()
         {
-            var consulta = contexto.Ferias
-                                   .Include(x => x.PeriodosDeFerias)
-                                   .AsQueryable();
-
-            if(colaboradorId > 0)
-            {
-                consulta.Where(x => x.ColaboradorId == colaboradorId);
-            }
-
-            var ferias = await consulta.ToListAsync();
-
+            var ferias = await feriasAppService.ListarFerias();
             return ferias;
         }
 
-        [HttpPost]
-        public async Task<Response> Post(int colaboradorId, List<PeriodoDeFerias> periodos)
+        [HttpPost("MarcarFerias")]
+        public async Task<Response> MarcarFerias([FromBody] List<PeriodoDeFeriasDto> periodos)
         {
             try
             {
-                var ferias = new Ferias(colaboradorId, DateTime.Now.Year);
-                ferias.AdicionarPeriodos(periodos);
-                contexto.Add(ferias);
-                await contexto.SaveChangesAsync();
+                await feriasAppService.CadastrarFeriasParaTodosOsColaboradores(periodos);
+                return RequestResponse.Success();
+            }
+            catch (Exception exception)
+            {
+                return RequestResponse.Error(exception.Message);
+            }
+        }
+
+        [HttpPost("AprovarFerias")]
+        public async Task<Response> AprovarFerias()
+        {
+            try
+            {
+                await feriasAppService.AprovarTodasAsFeriasDosColaboradores();
+                return RequestResponse.Success();
+            }
+            catch (Exception exception)
+            {
+                return RequestResponse.Error(exception.Message);
+            }
+        }
+        
+        [HttpDelete("LimparBanco")]
+        public async Task<Response> LimparBanco()
+        {
+            try
+            {
+                await feriasAppService.LimparBanco();
                 return RequestResponse.Success();
             }
             catch (Exception exception)
