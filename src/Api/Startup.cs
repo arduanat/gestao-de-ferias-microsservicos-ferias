@@ -21,7 +21,7 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Contexto>(option => option.UseSqlServer("Server=tcp:tcc-gestao-de-ferias.database.windows.net,1433;Initial Catalog=GestaoDeFerias.Ferias;Persist Security Info=False;User ID=stroinan;Password=$Vediant4393;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
+            services.AddDbContext<Contexto>(option => option.UseSqlServer("Data Source=SETIC-20000086\\SQLEXPRESS;Initial Catalog=GestaoDeFerias.Ferias;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddScoped<DbContext, Contexto>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
